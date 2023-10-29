@@ -1,29 +1,44 @@
 import { useState } from 'react';
 import './styles.css';
 
-type NotesProps = {
-  id: number,
+interface NotesProps {
+  id?: number,
   title: string,
   content: string,
 }
 
-export default function CreateNote() {
-  const [notes, setNotes] = useState<NotesProps[]>([]);
+type Props = {
+  onSubmit: ({title, content}: NotesProps) => void;
+}
+
+export default function CreateNote({ onSubmit }: Props) {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   
-  function handleCreateNote(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    console.log(event)
+  function handleCreateNote(event: any) {
+    event.preventDefault()
+    console.log('dados do callback', { title, content })
+
+    onSubmit({title, content })
   }
 
   return (
     <div>
         <form className='app-container' onSubmit={handleCreateNote}>
-          <input type="text" placeholder='title' required />
+          <input 
+            type="text" 
+            placeholder='title' 
+            value={title}
+            required 
+            onChange={event => setTitle(event.target.value)}
+          />
 
           <textarea 
-            name="content" 
+            name="content"
             rows={10}
+            value={content}
             placeholder='type here'
+            onChange={event => setContent(event.target.value)}
           >
           </textarea>
 
