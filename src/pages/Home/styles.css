@@ -1,0 +1,13 @@
+.my-app {
+    margin: 1rem;
+}
+
+.my-notes {
+    margin-top: 1.5rem;
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    max-width: 1280px;
+  
+    gap: 1rem;
+}

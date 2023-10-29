@@ -1,0 +1,49 @@
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(250px, 1fr)
+    );
+    grid-auto-rows: minmax(250px, auto);
+    gap: 20px;
+}
+
+.note-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: .8rem;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 2px 5px 10px
+        rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.notes-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.notes-header button {
+    font-size: 1rem;
+    padding: .2rem;
+    border: none;
+    cursor: pointer;
+    max-width: fit-content;
+}
+
+h2 {
+    margin: 0;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+textarea,
+input {
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: .8rem;
+    font-size: 1rem;
+}

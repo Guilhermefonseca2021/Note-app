@@ -1,0 +1,39 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 17rem;
+
+    gap: .5rem;
+}
+
+.app-container input {
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+
+    font-size: 1rem;
+    outline: none;
+}
+
+.app-container textarea {
+    border: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+.app-container button {
+    color: #fff;
+    padding: .5rem;
+    border-radius: 8px;
+    border: none;
+    background: #28f21e;
+    transition: all .3s linear;
+}
+
+.app-container button:hover {
+    background-color: rgb(106, 175, 198);
+    cursor: pointer;
+}
+
+
+
