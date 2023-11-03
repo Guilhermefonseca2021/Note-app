@@ -15,11 +15,12 @@ export default function CreateNote({ onSubmit }: Props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   
-  function handleCreateNote(event: any) {
+  function handleCreateNote(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     console.log('dados do callback', { title, content })
-
     onSubmit({title, content })
+    setTitle('')
+    setContent('')
   }
 
   return (

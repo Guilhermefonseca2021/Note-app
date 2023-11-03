@@ -1,13 +1,18 @@
+import axios from 'axios';
 import CreateNote from '../../components/CreateNote'
 import Notes from '../../components/Notes'
 import './styles.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type NotesProps = {
     id?: number,
     title: string,
     content: string,
 }
+
+const Apiserver = axios.create({
+  baseURL: 'https://localhost3333'
+})
 
 export default function Home() {
   const [title, setTitle] = useState('');
@@ -24,35 +29,47 @@ export default function Home() {
       title: "note title 1",
       content: "content 1",
     },
-    {
-      id: 3,
-      title: "note title 1",
-      content: "content 1",
-    },
-    {
-      id: 4,
-      title: "note title 1",
-      content: "content 1",
-    },
   ]);
 
-  function handleSubmit({title, content}: any) {
+  useEffect(() => {
+    Apiserver.get('/notes')
+      .then(response => console.log(response.data))
+  }, [notes])
+
+  function handleSubmit(data: NotesProps) {
     console.log('dados do App', { title, content })
 
     setTitle(title);
     setContent(content);
+    setNotes([...notes, data])
   }
 
-    return (
-        <div className='my-app'>
-            <CreateNote onSubmit={handleSubmit} />
-            <div className='my-notes'>
-                {notes.map(note => {
-                    return(
-                    <Notes title={title} content={content} key={note.id} />
-                    )
-                })}
-            </div>
+  // async function handleCreateDeck(data: NotesProps) {
+  //   console.log(data)
+  //   Apiserver.post('/deck', { title, content})
+  // }
+
+  function onNoteDelete(note: any) {
+    const id = note.id
+    const filteredNotes = notes.filter(note=> note.id != id)
+    setNotes(filteredNotes)
+  }
+
+  return (
+      <div className='my-app'>
+        <CreateNote onSubmit={handleSubmit} />
+        <div className='my-notes'>
+            {notes.map(note => {
+                return(
+                  <Notes 
+                    key={note.id} 
+                    title={note.title} 
+                    content={note.content} 
+                    onNoteDelete={onNoteDelete}  
+                  />
+                )
+            })}
         </div>
+      </div>
     )
 }
