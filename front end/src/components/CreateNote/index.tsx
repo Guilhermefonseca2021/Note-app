@@ -8,7 +8,7 @@ interface NotesProps {
 }
 
 type Props = {
-  onSubmit: ({ id, title, content }: NotesProps) => void;
+  onSubmit: ({ title, content }: NotesProps) => void;
 };
 
 export default function CreateNote({ onSubmit }: Props) {
@@ -17,8 +17,7 @@ export default function CreateNote({ onSubmit }: Props) {
 
   function handleCreateNote(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("dados do callback", { title, content });
-    onSubmit({ id: 1, title, content });
+    onSubmit({ title, content });
     setTitle("");
     setContent("");
   }

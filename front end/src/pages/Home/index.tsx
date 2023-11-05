@@ -10,41 +10,31 @@ type NotesProps = {
     content: string,
 }
 
-const Apiserver = axios.create({
-  baseURL: 'https://localhost3333'
+const APIserver = axios.create({
+  baseURL: 'http://localhost:3333'
 })
 
 export default function Home() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const [notes, setNotes] = useState<NotesProps[]>([
-    {
-      id: 1,
-      title: "note title 1",
-      content: "content 1",
-    },
-    {
-      id: 2,
-      title: "note title 1",
-      content: "content 1",
-    },
-  ]);
+  const [notes, setNotes] = useState<NotesProps[]>([]);
 
   useEffect(() => {
-    Apiserver.get('/notes')
-      .then(response => console.log(response.data))
+    APIserver.get('/api/notes')
+        .then(response => setNotes(response.data))
   }, [])
 
   function handleSubmit(data: NotesProps) {
-    console.log('dados do App', { title, content })
+    APIserver.post('/api/notes', { title, content }) 
 
     setTitle(title);
     setContent(content);
     setNotes([...notes, data])
   }
-
-  function onNoteDelete() {
+  
+  function onNoteDelete(id: any) {
+    APIserver.delete(`/api/notes/:${id}`)
     const updateNotes = notes.filter(note=> note.id !== note.id)
     setNotes(updateNotes)
   }
