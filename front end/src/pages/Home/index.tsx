@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     Apiserver.get('/notes')
       .then(response => console.log(response.data))
-  }, [notes])
+  }, [])
 
   function handleSubmit(data: NotesProps) {
     console.log('dados do App', { title, content })
@@ -44,15 +44,9 @@ export default function Home() {
     setNotes([...notes, data])
   }
 
-  // async function handleCreateDeck(data: NotesProps) {
-  //   console.log(data)
-  //   Apiserver.post('/deck', { title, content})
-  // }
-
-  function onNoteDelete(note: any) {
-    const id = note.id
-    const filteredNotes = notes.filter(note=> note.id != id)
-    setNotes(filteredNotes)
+  function onNoteDelete() {
+    const updateNotes = notes.filter(note=> note.id !== note.id)
+    setNotes(updateNotes)
   }
 
   return (
@@ -60,14 +54,14 @@ export default function Home() {
         <CreateNote onSubmit={handleSubmit} />
         <div className='my-notes'>
             {notes.map(note => {
-                return(
-                  <Notes 
-                    key={note.id} 
-                    title={note.title} 
-                    content={note.content} 
-                    onNoteDelete={onNoteDelete}  
-                  />
-                )
+              return(
+                <Notes 
+                  key={note.id} 
+                  title={note.title} 
+                  content={note.content} 
+                  onNoteDelete={onNoteDelete}  
+                />
+              )
             })}
         </div>
       </div>
